@@ -1,8 +1,8 @@
-# Portfolio Hugo Lamarche
+# Portfolio Hugo Lamarche 🌟
 
 Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce projet présente mes réalisations et mes compétences en développement web.
 
-## Table des matières
+## Table des matières 📚
 
 - [Technologies utilisées](#technologies-utilisées)
 - [Projets](#projets)
@@ -10,14 +10,14 @@ Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce pr
 - [Déploiement](#déploiement)
 - [Contact](#contact)
 
-## Technologies utilisées
+## Technologies utilisées 🛠️
 
 - **React** : Bibliothèque JavaScript pour construire des interfaces utilisateur.
 - **Vite** : Outil de construction rapide pour les projets modernes.
 - **Tailwind CSS** : Framework CSS pour un design réactif et moderne.
 - **TypeScript** : Superset de JavaScript qui ajoute des types statiques.
 
-## Projets
+## Projets 🚀
 
 ### 1. Codah
 - **Description** : Application de gestion des dossiers administratifs pour les collectivités locales.
@@ -53,7 +53,7 @@ Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce pr
   - Génération de rapports financiers pour le suivi des dépenses.
   - Tests unitaires et fonctionnels pour assurer la fiabilité de l'application.
 
-## Installation
+## Installation ⚙️
 
 Pour installer ce projet sur votre machine locale, suivez ces étapes :
 
@@ -77,7 +77,7 @@ Pour installer ce projet sur votre machine locale, suivez ces étapes :
    npm run dev
    ```
 
-## Déploiement
+## Déploiement 🌐
 
 Pour déployer le projet sur GitHub Pages, exécutez les commandes suivantes :
 
@@ -91,7 +91,7 @@ Pour déployer le projet sur GitHub Pages, exécutez les commandes suivantes :
    npm run deploy
    ```
 
-## Contact
+## Contact 📧
 
 Pour toute question ou demande, vous pouvez me contacter à l'adresse suivante :
 - **Email** : lamarche.hugo@orange.fr
@@ -100,4 +100,4 @@ Pour toute question ou demande, vous pouvez me contacter à l'adresse suivante :
 
 ---
 
-Merci de visiter mon portfolio !
+Merci de visiter mon portfolio ! 🎉
