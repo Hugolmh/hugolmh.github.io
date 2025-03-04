@@ -27,7 +27,7 @@ const Experience = () => {
       {
         title: 'Développeur Informatique',
         company: 'CNMSS',
-        period: '2023 - Présent',
+        period: '2023 - A ce jour',
         description: 'Développement et maintenance d\'applications spécifiques pour la gestion de l\'assurance maladie des militaires',
         tasks: [
           'Analyse des besoins des services métiers',

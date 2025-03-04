@@ -50,7 +50,7 @@ const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => v
           {project.features.map((feature, i) => (
             <li key={i} className="flex items-center text-gray-700">
               <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-              {feature}
+              En cours de développement
             </li>
           ))}
         </ul>
@@ -86,16 +86,15 @@ const Projects = () => {
       title: 'Codah',
       description: 'Application de gestion des dossiers administratifs pour les collectivités locales, facilitant le suivi et le traitement des demandes citoyennes.',
       image: `${import.meta.env.BASE_URL}Capture.PNG`,
-      tags: ['PHP', 'Symfony', 'Gestion administrative'],
+      tags: ['En cours de développement'],
       features: [
-        'Gestion centralisée des dossiers',
-        'Suivi en temps réel des demandes',
-        'Notifications automatisées',
-        'Interface utilisateur intuitive',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
       ],
       additionalImages: [
         `${import.meta.env.BASE_URL}Capture2.PNG`,
-        `${import.meta.env.BASE_URL}Capture5.PNG`,
       ],
       additionalInfo: 'Cette application a été développée pour améliorer l\'efficacité des services administratifs.',
       icon: <Code className="w-6 h-6" />,
@@ -104,16 +103,14 @@ const Projects = () => {
       title: 'FIB',
       description: 'Plateforme de gestion financière intégrée pour les entreprises, offrant des outils de comptabilité, de facturation et de reporting financier.',
       image: `${import.meta.env.BASE_URL}Capture4.PNG`,
-      tags: ['PHP', 'Symfony', 'Finance', 'Comptabilité'],
+      tags: ['En cours de développement'],
       features: [
-        'Suivi des transactions financières',
-        'Génération de factures',
-        'Rapports financiers détaillés',
-        'Intégration avec des systèmes tiers',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
       ],
-      additionalImages: [
-        `${import.meta.env.BASE_URL}Capture6.PNG`,
-      ],
+      additionalImages: [],
       additionalInfo: 'Cette plateforme permet une gestion financière simplifiée et efficace.',
       icon: <Code className="w-6 h-6" />,
     },
@@ -121,17 +118,34 @@ const Projects = () => {
       title: 'SIJ',
       description: 'Système d\'information jeunesse permettant aux jeunes d\'accéder à des ressources, des événements et des opportunités locales.',
       image: `${import.meta.env.BASE_URL}Capture3.PNG`,
-      tags: ['PHP', 'Symfony', 'Jeunesse', 'Information'],
+      tags: ['En cours de développement'],
       features: [
-        'Annuaire des ressources locales',
-        'Calendrier des événements',
-        'Espace personnel pour les utilisateurs',
-        'Module de recherche avancée',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
+        'En cours de développement',
       ],
       additionalImages: [],
       additionalInfo: 'Ce système vise à renforcer l\'engagement des jeunes dans leur communauté.',
       icon: <Code className="w-6 h-6" />,
     },
+    {
+      title: 'GSB',
+      description: 'Développement d\'une application de gestion des frais pour le laboratoire pharmaceutique Galaxy Swiss Bourdin, permettant aux visiteurs médicaux de saisir et suivre leurs notes de frais.',
+      image: `${import.meta.env.BASE_URL}gsb.jpg`,
+      tags: ['BTS SIO', 'SLAM', 'Projet de développement'],
+      features: [
+        'Conception et développement d\'une application web en php, html, css, javascript, sql',
+        'Mise en place d\'une base de données MySQL pour la gestion des utilisateurs et des frais.',
+        'Implémentation d\'un système d\'authentification sécurisé pour les visiteurs médicaux.',
+        'Fonctionnalités de saisie, modification et consultation des fiches de frais.',
+        'Génération de rapports financiers pour le suivi des dépenses.',
+        'Tests unitaires et fonctionnels pour assurer la fiabilité de l\'application.'
+      ],
+      additionalImages: [],
+      additionalInfo: 'Ce projet a été réalisé dans le cadre du BTS SIO option SLAM, mettant en œuvre des compétences en développement web, gestion de bases de données et sécurité applicative.',
+      icon: <Code className="w-6 h-6" />,
+    },    
   ];
 
   return (

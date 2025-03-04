@@ -13,14 +13,14 @@ const Education = () => {
     {
       title: 'Développeur Informatique en alternance',
       institution: 'CNMSS, Toulon',
-      period: 'Septembre 2024 - Présent',
+      period: 'Septembre 2024 - A ce jour',
       description: 'Développement et maintenance d\'applications métiers pour la Caisse Nationale Militaire de Sécurité Sociale.',
       icon: <Building2 className="w-6 h-6" />,
     },
     {
       title: 'BTS SIO option SLAM',
       institution: 'Lycée Bonaparte, Toulon',
-      period: 'Septembre 2023 - Présent',
+      period: 'Septembre 2023 - A ce jour',
       description: 'Formation en alternance spécialisée en Solutions Logicielles et Applications Métiers.',
       icon: <GraduationCap className="w-6 h-6" />,
     },
@@ -57,7 +57,7 @@ const Education = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Parcours & Formation</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Parcours & Formations</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Mon parcours académique et professionnel dans le développement informatique.
           </p>
