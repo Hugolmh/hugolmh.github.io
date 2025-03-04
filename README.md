@@ -42,6 +42,17 @@ Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce pr
   - Annuaire des ressources locales.
   - Calendrier des événements.
 
+### 4. GSB
+- **Description** : Développement d'une application de gestion des frais pour le laboratoire pharmaceutique Galaxy Swiss Bourdin, permettant aux visiteurs médicaux de saisir et suivre leurs notes de frais.
+- **Technologies** : PHP, HTML, CSS, JavaScript, SQL.
+- **Fonctionnalités** :
+  - Conception et développement d'une application web.
+  - Mise en place d'une base de données MySQL pour la gestion des utilisateurs et des frais.
+  - Implémentation d'un système d'authentification sécurisé.
+  - Fonctionnalités de saisie, modification et consultation des fiches de frais.
+  - Génération de rapports financiers pour le suivi des dépenses.
+  - Tests unitaires et fonctionnels pour assurer la fiabilité de l'application.
+
 ## Installation
 
 Pour installer ce projet sur votre machine locale, suivez ces étapes :
