@@ -85,7 +85,7 @@ const Projects = () => {
     {
       title: 'Codah',
       description: 'Application de gestion des dossiers administratifs pour les collectivités locales, facilitant le suivi et le traitement des demandes citoyennes.',
-      image: '/Capture.PNG',
+      image: `${import.meta.env.BASE_URL}Capture.PNG`,
       tags: ['PHP', 'Symfony', 'Gestion administrative'],
       features: [
         'Gestion centralisée des dossiers',
@@ -93,14 +93,17 @@ const Projects = () => {
         'Notifications automatisées',
         'Interface utilisateur intuitive',
       ],
-      additionalImages: ['/Capture2.PNG', '/Capture5.PNG'],
+      additionalImages: [
+        `${import.meta.env.BASE_URL}Capture2.PNG`,
+        `${import.meta.env.BASE_URL}Capture5.PNG`,
+      ],
       additionalInfo: 'Cette application a été développée pour améliorer l\'efficacité des services administratifs.',
       icon: <Code className="w-6 h-6" />,
     },
     {
       title: 'FIB',
       description: 'Plateforme de gestion financière intégrée pour les entreprises, offrant des outils de comptabilité, de facturation et de reporting financier.',
-      image: '/Capture4.PNG',
+      image: `${import.meta.env.BASE_URL}Capture4.PNG`,
       tags: ['PHP', 'Symfony', 'Finance', 'Comptabilité'],
       features: [
         'Suivi des transactions financières',
@@ -108,14 +111,16 @@ const Projects = () => {
         'Rapports financiers détaillés',
         'Intégration avec des systèmes tiers',
       ],
-      additionalImages: ['/Capture6.PNG'],
+      additionalImages: [
+        `${import.meta.env.BASE_URL}Capture6.PNG`,
+      ],
       additionalInfo: 'Cette plateforme permet une gestion financière simplifiée et efficace.',
       icon: <Code className="w-6 h-6" />,
     },
     {
       title: 'SIJ',
       description: 'Système d\'information jeunesse permettant aux jeunes d\'accéder à des ressources, des événements et des opportunités locales.',
-      image: '/Capture3.PNG',
+      image: `${import.meta.env.BASE_URL}Capture3.PNG`,
       tags: ['PHP', 'Symfony', 'Jeunesse', 'Information'],
       features: [
         'Annuaire des ressources locales',
