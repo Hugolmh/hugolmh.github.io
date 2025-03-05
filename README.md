@@ -1,6 +1,6 @@
 # Portfolio Hugo Lamarche 🌟
 
-Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce projet présente mes réalisations et mes compétences en développement web.
+Bienvenue sur mon portfolio, un étudiant en BTS SIO SLAM. Ce projet présente mes réalisations et mes compétences en développement web.
 
 ![Portfolio Preview](public/preview.png)
 
