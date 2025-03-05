@@ -2,20 +2,35 @@
 
 Bienvenue sur le portfolio de Hugo Lamarche, un étudiant en BTS SIO SLAM. Ce projet présente mes réalisations et mes compétences en développement web.
 
+![Portfolio Preview](public/preview.png)
+
 ## Table des matières 📚
 
+- [Fonctionnalités](#fonctionnalités)
 - [Technologies utilisées](#technologies-utilisées)
 - [Projets](#projets)
 - [Installation](#installation)
 - [Déploiement](#déploiement)
+- [Modifications récentes](#modifications-récentes)
 - [Contact](#contact)
+
+## Fonctionnalités ✨
+
+- **Design Responsive** : S'adapte à tous les appareils (mobile, tablette, desktop)
+- **Mode Sombre** : Activé par défaut, avec possibilité de basculer vers le mode clair
+- **Animations** : Utilisation de Framer Motion pour des transitions fluides
+- **Sections Complètes** : Présentation, compétences, expériences, projets et contact
+- **Icônes Vectorielles** : Utilisation de react-icons pour des icônes de haute qualité
 
 ## Technologies utilisées 🛠️
 
-- **React** : Bibliothèque JavaScript pour construire des interfaces utilisateur.
-- **Vite** : Outil de construction rapide pour les projets modernes.
-- **Tailwind CSS** : Framework CSS pour un design réactif et moderne.
-- **TypeScript** : Superset de JavaScript qui ajoute des types statiques.
+- **React** : Bibliothèque JavaScript pour construire des interfaces utilisateur
+- **TypeScript** : Superset de JavaScript qui ajoute des types statiques
+- **Vite** : Outil de construction rapide pour les projets modernes
+- **Tailwind CSS** : Framework CSS pour un design réactif et moderne
+- **Framer Motion** : Bibliothèque d'animations pour React
+- **React Icons** : Collection d'icônes populaires pour React
+- **React Intersection Observer** : Pour déclencher des animations au défilement
 
 ## Projets 🚀
 
@@ -90,6 +105,14 @@ Pour déployer le projet sur GitHub Pages, exécutez les commandes suivantes :
    ```bash
    npm run deploy
    ```
+
+## Modifications récentes 🔄
+
+- **Utilisation de react-icons** : Remplacement des images par des icônes vectorielles pour une meilleure performance et compatibilité
+- **Mode sombre par défaut** : Le site s'affiche maintenant en mode sombre par défaut
+- **Optimisation du code** : Suppression des fichiers et du code inutilisés
+- **Documentation améliorée** : Ajout de commentaires dans le code pour faciliter la maintenance
+- **Correction des problèmes d'affichage** : Amélioration de la visibilité des éléments en mode sombre
 
 ## Contact 📧
 

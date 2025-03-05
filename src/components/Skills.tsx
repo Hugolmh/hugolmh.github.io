@@ -1,56 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Database, Globe, Terminal, Laptop, Brain } from 'lucide-react';
+import { Code, Database, Globe, Terminal } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+// Import des icônes pour les compétences
+import { 
+  SiJavascript, SiTypescript, SiPython,
+  SiSymfony, SiNodedotjs, SiSpring, SiReact,
+  SiPostgresql, SiMysql, SiMongodb,
+  SiGit, SiLinux, SiDocker 
+} from 'react-icons/si';
 
+/**
+ * Composant Skills - Affiche les compétences techniques regroupées par catégories
+ * Utilise des icônes de react-icons pour une meilleure compatibilité et performance
+ */
 const Skills = () => {
+  // Hook pour détecter quand le composant est visible dans le viewport
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: true, // Déclenche l'animation une seule fois
+    threshold: 0.1,    // Déclenche quand 10% du composant est visible
   });
+  
+  // Récupération du mode sombre depuis le contexte
+  const { darkMode } = useTheme();
 
+  // Définition des catégories de compétences avec leurs icônes
   const skillCategories = [
     {
       title: 'Langages de Programmation',
       icon: <Code className="w-6 h-6" />,
       skills: [
-        { name: 'JavaScript', level: 50 },
-        { name: 'TypeScript', level: 20 },
-        { name: 'Python', level: 60 },
-        { name: 'Java', level: 40 }
+        { name: 'JavaScript', icon: <SiJavascript className="w-8 h-8 text-yellow-400" /> },
+        { name: 'TypeScript', icon: <SiTypescript className="w-8 h-8 text-blue-500" /> },
+        { name: 'Python', icon: <SiPython className="w-8 h-8 text-blue-600" /> }
       ]
     },
     {
       title: 'Frameworks & Librairies',
       icon: <Globe className="w-6 h-6" />,
       skills: [
-        { name: 'Symfony', level: 60 },
-        { name: 'Node.js', level: 10 },
-        { name: 'Spring Boot', level: 20 }
+        { name: 'Symfony', icon: <SiSymfony className="w-8 h-8 text-black dark:text-white" /> },
+        { name: 'Node.js', icon: <SiNodedotjs className="w-8 h-8 text-green-600" /> },
+        { name: 'Spring Boot', icon: <SiSpring className="w-8 h-8 text-green-500" /> },
+        { name: 'React', icon: <SiReact className="w-8 h-8 text-blue-400" /> }
       ]
     },
     {
       title: 'Base de données',
       icon: <Database className="w-6 h-6" />,
       skills: [
-        { name: 'PostgreSQL', level: 50 },
-        { name: 'MySQL', level: 50 },
-        { name: 'MongoDB', level: 50 }
+        { name: 'PostgreSQL', icon: <SiPostgresql className="w-8 h-8 text-blue-700" /> },
+        { name: 'MySQL', icon: <SiMysql className="w-8 h-8 text-blue-800" /> },
+        { name: 'MongoDB', icon: <SiMongodb className="w-8 h-8 text-green-700" /> }
       ]
     },
     {
       title: 'Outils & DevOps',
       icon: <Terminal className="w-6 h-6" />,
       skills: [
-        { name: 'Git', level: 55 },
-        { name: 'Linux', level: 35 }
+        { name: 'Git', icon: <SiGit className="w-8 h-8 text-orange-600" /> },
+        { name: 'Linux', icon: <SiLinux className="w-8 h-8 text-yellow-600" /> },
+        { name: 'Docker', icon: <SiDocker className="w-8 h-8 text-blue-500" /> }
       ]
     }
   ];
 
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className={`py-20 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-colors duration-300`}>
       <div className="container mx-auto px-6">
+        {/* Titre de la section */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -58,12 +77,13 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Compétences</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Compétences</h2>
+          <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             Mes compétences techniques et outils maîtrisés
           </p>
         </motion.div>
 
+        {/* Grille des catégories de compétences */}
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
@@ -71,32 +91,35 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              className="bg-white rounded-lg shadow-lg p-6"
+              className={`rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'}`}
             >
+              {/* En-tête de la catégorie */}
               <div className="flex items-center mb-6">
-                <div className="p-2 bg-blue-50 rounded-lg mr-4">
+                <div className={`p-2 rounded-lg mr-4 ${darkMode ? 'bg-gray-600 text-blue-300' : 'bg-blue-50 text-blue-500'}`}>
                   {category.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                   {category.title}
                 </h3>
               </div>
-              <div className="space-y-4">
+              
+              {/* Grille des compétences */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-gray-700">{skill.name}</span>
-                      <span className="text-gray-500">{skill.level}%</span>
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.4, delay: categoryIndex * 0.2 + skillIndex * 0.1 }}
+                    className={`flex flex-col items-center p-3 rounded-lg ${darkMode ? 'bg-gray-800 hover:bg-gray-600' : 'bg-gray-50 hover:bg-gray-100'} transition-colors duration-200`}
+                  >
+                    <div className="w-12 h-12 mb-2 flex items-center justify-center">
+                      {skill.icon}
                     </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: `${skill.level}%` } : {}}
-                        transition={{ duration: 1, delay: categoryIndex * 0.2 + skillIndex * 0.1 }}
-                        className="h-full bg-blue-500 rounded-full"
-                      />
-                    </div>
-                  </div>
+                    <span className={`text-sm font-medium text-center ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                      {skill.name}
+                    </span>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

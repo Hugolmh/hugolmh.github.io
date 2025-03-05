@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code } from 'lucide-react';
+import { Code, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 // Définir le type pour un projet
 interface Project {
@@ -17,46 +18,141 @@ interface Project {
 
 // Nouveau composant pour la popup
 const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => void }) => {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-      <div className="bg-white rounded-lg p-6 w-full h-full overflow-auto">
-        <h3 className="text-2xl font-semibold">{project.title}</h3>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-50 object-cover mb-4"
-        />
-        <p className="mb-4">{project.description}</p>
-        
-        {project.additionalInfo && (
-          <div className="mb-4">
-            <h4 className="text-xl font-semibold">Informations supplémentaires</h4>
-            <p>{project.additionalInfo}</p>
-          </div>
-        )}
+  const { darkMode } = useTheme();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const allImages = [project.image, ...(project.additionalImages || [])];
 
-        {project.additionalImages && project.additionalImages.length > 0 && (
-          <div className="mb-4">
-            <h4 className="text-xl font-semibold">Images supplémentaires</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {project.additionalImages.map((img, index) => (
-                <img key={index} src={img} alt={`Additional ${index}`} className="w-full h-50 object-cover" />
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === allImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Gestion des touches clavier pour la navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') setCurrentImageIndex((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));
+      if (e.key === 'ArrowRight') setCurrentImageIndex((prev) => (prev === allImages.length - 1 ? 0 : prev + 1));
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [allImages.length, onClose]);
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50" onClick={onClose}>
+      <div 
+        className={`relative w-full h-full max-w-6xl max-h-[90vh] mx-auto my-auto p-6 overflow-auto ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} rounded-lg`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Bouton de fermeture en haut à droite */}
+        <button 
+          onClick={onClose}
+          className={`absolute top-4 right-4 z-50 p-2 rounded-full ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'}`}
+          aria-label="Fermer"
+        >
+          <X size={24} />
+        </button>
+
+        <h3 className="text-2xl font-semibold mb-4">{project.title}</h3>
+        
+        {/* Galerie d'images avec navigation */}
+        <div className="relative mb-6 rounded-lg overflow-hidden">
+          <div className="aspect-video bg-gray-900 flex items-center justify-center">
+            <img
+              src={allImages[currentImageIndex]}
+              alt={`${project.title} - Image ${currentImageIndex + 1}`}
+              className="max-w-full max-h-full object-contain"
+            />
+          </div>
+          
+          {/* Navigation des images */}
+          {allImages.length > 1 && (
+            <>
+              <button 
+                onClick={handlePrevImage}
+                className={`absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full ${darkMode ? 'bg-gray-800/80 text-white' : 'bg-white/80 text-gray-800'} hover:bg-opacity-100`}
+                aria-label="Image précédente"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={handleNextImage}
+                className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full ${darkMode ? 'bg-gray-800/80 text-white' : 'bg-white/80 text-gray-800'} hover:bg-opacity-100`}
+                aria-label="Image suivante"
+              >
+                <ChevronRight size={24} />
+              </button>
+              
+              {/* Indicateur de position */}
+              <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+                {allImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`w-2 h-2 rounded-full ${currentImageIndex === index ? 'bg-blue-500' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`}
+                    aria-label={`Aller à l'image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className={`text-xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Description</h4>
+            <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.description}</p>
+            
+            {project.additionalInfo && (
+              <div className="mb-4">
+                <h4 className={`text-xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Informations supplémentaires</h4>
+                <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.additionalInfo}</p>
+              </div>
+            )}
+          </div>
+          
+          <div>
+            <h4 className={`text-xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Fonctionnalités</h4>
+            <ul className="space-y-2 mb-4">
+              {project.features.map((feature, i) => (
+                <li key={i} className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            
+            <div className="flex flex-wrap gap-2 mt-4">
+              {project.tags.map((tag, i) => (
+                <span
+                  key={i}
+                  className={`px-3 py-1 rounded-full text-sm ${darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-100 text-gray-700'}`}
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           </div>
-        )}
-
-        <ul className="space-y-2 mb-4">
-          {project.features.map((feature, i) => (
-            <li key={i} className="flex items-center text-gray-700">
-              <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-              En cours de développement
-            </li>
-          ))}
-        </ul>
-        <button onClick={onClose} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-          Fermer
-        </button>
+        </div>
+        
+        {/* Bouton de fermeture en bas */}
+        <div className="mt-6 flex justify-center">
+          <button 
+            onClick={onClose} 
+            className={`px-6 py-2 rounded-lg ${darkMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+          >
+            Fermer
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -69,6 +165,7 @@ const Projects = () => {
   });
   
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { darkMode } = useTheme();
 
   useEffect(() => {
     if (selectedProject) {
@@ -149,7 +246,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
+    <section id="projects" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} transition-colors duration-300`}>
       <div className="container mx-auto px-6">
         <motion.div
           ref={ref}
@@ -158,8 +255,8 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Projets & Réalisations</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Projets & Réalisations</h2>
+          <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             Découvrez mes projets réalisés en formation et en entreprise
           </p>
         </motion.div>
@@ -171,7 +268,7 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
+              className={`rounded-lg shadow-lg overflow-hidden cursor-pointer ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'} transition-colors duration-300`}
               onClick={() => setSelectedProject(project)}
             >
               <div className="relative h-48 overflow-hidden">
@@ -197,19 +294,36 @@ const Projects = () => {
               </div>
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="p-2 bg-blue-50 rounded-lg mr-4">
+                  <div className={`p-2 rounded-lg mr-4 ${darkMode ? 'bg-gray-700 text-blue-300' : 'bg-blue-50 text-blue-500'}`}>
                     {project.icon}
                   </div>
-                  <p className="text-gray-700">{project.description}</p>
+                  <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.description}</p>
                 </div>
                 <ul className="space-y-2 mb-4">
-                  {project.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-gray-700">
+                  {project.features.slice(0, 2).map((feature, i) => (
+                    <li key={i} className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
                       {feature}
                     </li>
                   ))}
+                  {project.features.length > 2 && (
+                    <li className={`text-sm italic ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      + {project.features.length - 2} autres fonctionnalités...
+                    </li>
+                  )}
                 </ul>
+                
+                {/* Indicateur de galerie d'images */}
+                {project.additionalImages && project.additionalImages.length > 0 && (
+                  <div className={`text-sm ${darkMode ? 'text-blue-300' : 'text-blue-600'} flex items-center`}>
+                    <span className="mr-2">Voir {project.additionalImages.length + 1} images</span>
+                    <div className="flex space-x-1">
+                      {[...Array(Math.min(3, project.additionalImages.length + 1))].map((_, i) => (
+                        <div key={i} className="w-2 h-2 rounded-full bg-blue-500" />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

@@ -2,12 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Styles globaux */
 html {
   scroll-behavior: smooth;
 }
 
 body {
   @apply text-gray-900 antialiased;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Transitions pour le mode sombre */
+.dark body {
+  @apply bg-gray-900 text-white;
+}
+
+/* Styles pour les sections */
+section {
+  @apply transition-colors duration-300;
+}
+
+/* Styles pour les liens */
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Styles pour les boutons */
+button {
+  @apply transition-all duration-200;
+}
+
+/* Styles pour les images */
+img {
+  @apply max-w-full h-auto;
+}
+
+/* Styles pour les scrollbars en mode sombre */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
 }
 
 ::selection {
