@@ -97,34 +97,34 @@ Les projets sont organisés en trois catégories : Entreprise, École et Personn
 ### Projets d'entreprise
 
 #### 1. Codah
-- **Description** : Application de gestion des dossiers administratifs pour les collectivités locales.
-- **Technologies** : PHP, Symfony.
-- **Référentiel BTS SIO** : Répondre aux incidents, Développer la présence en ligne, Travailler en mode projet.
+- **Description** : Application de consultation des droits, accès et habilitations pour les collectivités locales.
+- **Technologies** : PHP, Symfony
+- **Référentiel BTS SIO** : Gérer le patrimoine informatique, Répondre aux incidents, Mettre à disposition un service
 - **Fonctionnalités** :
-  - Gestion centralisée des dossiers.
-  - Suivi en temps réel des demandes.
-  - Interface utilisateur intuitive.
-  - Génération de rapports statistiques.
+  - Recherche par utilisateur et département
+  - Accès aux référentiels multiples pour une gestion optimisée
+  - Extraction de données via un bouton Excel pour une analyse approfondie
+  - Suivi des droits et habilitations en temps réel
 
 #### 2. FIB
-- **Description** : Plateforme de gestion financière intégrée pour les entreprises.
-- **Technologies** : PHP, Symfony.
-- **Référentiel BTS SIO** : Gérer le patrimoine informatique, Répondre aux incidents, Mettre à disposition un service.
+- **Description** : Application de fichier des implémentations bancaires
+- **Technologies** : PHP, Symfony
+- **Référentiel BTS SIO** : Gérer le patrimoine informatique, Mettre à disposition un service
 - **Fonctionnalités** :
-  - Suivi des transactions financières.
-  - Génération de factures.
-  - Rapports financiers détaillés.
-  - Tableau de bord personnalisable.
+  - Fusion de plusieurs fichiers de la Banque de France
+  - Recherche par code banque ou code guichet
+  - Recherche avancée par département ou ville
+  - Accès aux informations bancaires détaillées
 
 #### 3. SIJ
-- **Description** : Système d'information jeunesse permettant aux jeunes d'accéder à des ressources et des événements.
-- **Technologies** : PHP, Symfony.
-- **Référentiel BTS SIO** : Développer la présence en ligne, Mettre à disposition un service, Travailler en mode projet.
+- **Description** : Application de suivi des statistiques individuelles journalières
+- **Technologies** : PHP, Symfony
+- **Référentiel BTS SIO** : Mettre à disposition un service, Développer la présence en ligne
 - **Fonctionnalités** :
-  - Annuaire des ressources locales.
-  - Calendrier des événements.
-  - Système de recherche avancé.
-  - Espace personnel pour les utilisateurs.
+  - Suivi des performances individuelles au quotidien
+  - Visualisation des statistiques sous forme de tableaux
+  - Espace personnel avec différents niveaux d'habilitation (N0, N1, N2)
+  - Analyse détaillée des performances
 
 ### Projets scolaires
 
@@ -206,17 +206,24 @@ Pour déployer le projet sur GitHub Pages, exécutez les commandes suivantes :
 
 ## Modifications récentes 🔄
 
-- **Référentiel BTS SIO** : Ajout des compétences du référentiel BTS SIO SLAM avec explications détaillées
-- **Système de tri des projets** : Implémentation d'un système de filtrage par catégorie (entreprise, école, personnel)
-- **Ajout du projet Nolark** : Intégration du projet scolaire Nolark avec captures d'écran et description
-- **Refonte de la page d'accueil** : Nouveau design avec animations de particules et effet de machine à écrire
-- **Système de notation des compétences** : Ajout d'un système d'évaluation par étoiles pour chaque compétence
-- **Galerie de projets améliorée** : Visualisation des images en plein écran et animations fluides
-- **Timeline interactive** : Parcours éducatif et professionnel avec détails développables
-- **Mode sombre par défaut** : Le site s'affiche maintenant en mode sombre par défaut
-- **Optimisation des animations** : Utilisation avancée de Framer Motion pour des transitions fluides
-- **Amélioration de la réactivité** : Optimisation pour tous les appareils
-- **Documentation améliorée** : Ajout de commentaires dans le code pour faciliter la maintenance
+- **Amélioration des projets** :
+  - Mise à jour des descriptions des projets Codah, FIB et SIJ
+  - Ajout de captures d'écran et de fonctionnalités détaillées
+  - Intégration du référentiel BTS SIO pour chaque projet
+- **Améliorations visuelles** :
+  - Optimisation de l'affichage des images en plein écran
+  - Correction du comportement de fermeture des images
+  - Amélioration des animations de transition
+- **Fonctionnalités ajoutées** :
+  - Système de notation par étoiles pour les compétences
+  - Filtrage des projets par catégorie
+  - Affichage détaillé du référentiel BTS SIO
+  - Timeline interactive pour le parcours éducatif
+- **Optimisations techniques** :
+  - Correction des problèmes de navigation
+  - Amélioration des performances d'animation
+  - Optimisation du chargement des images
+  - Mise à jour des dépendances du projet
 
 ## Contact 📧
 
