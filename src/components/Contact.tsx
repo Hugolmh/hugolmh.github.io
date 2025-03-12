@@ -34,19 +34,19 @@ const Contact = () => {
     },
     {
       name: 'LinkedIn',
-      value: 'linkedin.com/in/hugolamarche',
-      href: 'https://linkedin.com/in/hugolamarche',
+      value: 'https://linkedin.com/in/hugo-lamarche-03a4342b7',
+      href: 'https://linkedin.com/in/hugo-lamarche-03a4342b7',
       icon: <FaLinkedin className="w-6 h-6 text-blue-600" />
     },
     {
       name: 'Instagram',
-      value: 'Instagram',
+      value: 'https://instagram.com/hugo.lmh',
       href: 'https://instagram.com/hugo.lmh',
       icon: <FaInstagram className="w-6 h-6 text-pink-600" />
     },
     {
       name: 'Discord',
-      value: 'Discord',
+      value: 'https://discord.com/users/nehaa',
       href: 'https://discord.com/users/nehaa',
       icon: <FaDiscord className="w-6 h-6 text-indigo-500" />
     }

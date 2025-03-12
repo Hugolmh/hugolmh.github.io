@@ -16,23 +16,23 @@ const Experience = () => {
     {
       title: 'Développeur Informatique',
       company: 'CNMSS',
-      period: '2023 - A ce jour',
+      period: '2024 - A ce jour',
       description: 'Développement et maintenance d\'applications spécifiques pour la gestion de l\'assurance maladie des militaires',
       tasks: [
         'Analyse des besoins des services métiers',
-        'Conception et développement d\'applications mobiles',
+        'Conception et développement d\'applications web',
         'Intégration des solutions applicatives dans divers environnements',
         'Rédaction de la documentation technique',
         'Maintenance en condition opérationnelle des applications',
         'Veille technologique sur les langages de développement'
       ],
       icon: <Code className="w-6 h-6" />,
-      tech: ['Java', 'Angular', 'PHP', 'Symfony', 'SQL', 'Git']
+      tech: ['PHP', 'Symfony', 'SQL', 'Git']
     },
     {
       title: 'Stagiaire Développeur',
       company: 'CNMSS',
-      period: 'Stage de 1ère année BTS SIO - Mai 2024',
+      period: 'Stage de 1ère année BTS SIO - Mai-Juin 2024 (2 mois)',
       description: 'Stage de première année de BTS SIO au sein de la CNMSS',
       tasks: [
         'Découverte de l\'environnement de développement',
@@ -41,12 +41,12 @@ const Experience = () => {
         'Initiation aux bonnes pratiques de développement'
       ],
       icon: <Code className="w-6 h-6" />,
-      tech: ['Java', 'PHP', 'SQL', 'Git']
+      tech: ['PHP', 'Symfony', 'SQL', 'Git']
     },
     {
       title: 'Fayardesign',
       company: 'Agence de valorisation de marques à Hyères',
-      period: 'Stage de 2 semaines',
+      period: 'Stage de 2 semaines en classe de 3ème',
       description: 'Spécialisée dans la création d\'identités visuelles et le design produit',
       tasks: [
         'Conception de logotypes et identités de marque',
@@ -72,7 +72,7 @@ const Experience = () => {
         >
           <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Expériences Professionnelles</h2>
           <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            Mes expériences en tant que développeur en alternance
+            Mes expériences en tant que développeur 
           </p>
         </motion.div>
 
