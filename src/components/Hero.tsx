@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Github, Linkedin, Code, Database, Server, BookOpen, Users, Globe, Monitor, Shield, Briefcase, Building } from 'lucide-react';
+import { Mail, Github, Linkedin, Code, Database, Server, BookOpen, Users, Globe, Monitor, Shield, Briefcase, Building, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
@@ -115,6 +115,18 @@ const Hero = () => {
   // Définir les transitions pour les compétences
   const skillHoverTransition = { type: "spring", stiffness: 400, damping: 10 };
 
+  // Calculer l'âge dynamiquement
+  const calculateAge = () => {
+    const birthDate = new Date(2004, 2, 20); // Mois commence à 0 (mars = 2)
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
   return (
     <section id="home" className={`min-h-screen pt-20 flex items-center relative overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Particules flottantes en arrière-plan */}
@@ -210,9 +222,24 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Né le 20 mars 2004 • <Link to="/cnmss" className={`inline-flex items-center font-medium ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}>
-                <Building className="w-4 h-4 mr-1" /> En alternance chez CNMSS
-              </Link> à Toulon • Étudiant en BTS SIO SLAM
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-5 h-5 text-blue-500" />
+                <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
+                  {calculateAge()} ans
+                </span>
+                <span className={`mx-2 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>•</span>
+                <Link
+                  to="/cnmss"
+                  className={`inline-flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
+                >
+                  <Building className="w-5 h-5 mr-2" />
+                  En alternance chez CNMSS
+                </Link>
+                <span className={`mx-2 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>•</span>
+                <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
+                  Étudiant en BTS SIO SLAM
+                </span>
+              </div>
             </motion.p>
             
             {/* Bouton CNMSS avec animation */}
