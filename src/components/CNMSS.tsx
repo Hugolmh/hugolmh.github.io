@@ -329,53 +329,15 @@ const CNMSS = () => {
             animate={missionInView ? "visible" : "hidden"}
             variants={fadeInUp}
           >
-            <h2 className="text-3xl font-bold mb-4">Missions et valeurs</h2>
+            <h2 className="text-3xl font-bold mb-4">Valeurs</h2>
             <p className="max-w-3xl mx-auto">
               La CNMSS assure des missions essentielles adaptées aux spécificités du métier militaire,
               en France comme lors des opérations extérieures.
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                title: "Assurance maladie",
-                description: "Gestion du régime obligatoire d'assurance maladie des militaires et de leurs ayants droit, avec remboursement des soins et versement des prestations."
-              },
-              {
-                title: "Action sanitaire et sociale",
-                description: "Mise en œuvre d'une politique d'action sanitaire et sociale adaptée aux besoins spécifiques de la communauté militaire."
-              },
-              {
-                title: "Prévention",
-                description: "Développement d'actions de prévention et de promotion de la santé pour les militaires et leurs familles."
-              },
-              {
-                title: "Soutien aux blessés",
-                description: "Accompagnement spécifique des militaires blessés en service et de leurs familles, avec des dispositifs adaptés."
-              }
-            ].map((mission, i) => (
-              <motion.div
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate={missionInView ? "visible" : "hidden"}
-                variants={cardVariants}
-                className={`p-6 rounded-xl shadow-lg ${darkMode ? 'bg-gray-700' : 'bg-white'}`}
-              >
-                <h3 className="text-xl font-semibold mb-3 flex items-center">
-                  <span className={`inline-block w-8 h-8 rounded-full mr-3 flex items-center justify-center ${darkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white'}`}>
-                    {i + 1}
-                  </span>
-                  {mission.title}
-                </h3>
-                <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>{mission.description}</p>
-              </motion.div>
-            ))}
-          </div>
-          
           <motion.div 
-            className="mt-16 p-8 rounded-xl shadow-lg max-w-4xl mx-auto"
+            className="mt-6 p-8 rounded-xl shadow-lg max-w-4xl mx-auto"
             style={{
               background: darkMode 
                 ? 'linear-gradient(135deg, #2d3748 0%, #1a365d 100%)' 
