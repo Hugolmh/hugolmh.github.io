@@ -223,8 +223,8 @@ const CNMSS = () => {
           >
             <h2 className="text-3xl font-bold mb-4">Présentation de la CNMSS</h2>
             <p className="max-w-3xl mx-auto">
-              La Caisse Nationale Militaire de Sécurité Sociale (CNMSS) est un établissement public à caractère administratif 
-              sous tutelle du ministère des Armées, créée en 1949 pour gérer le régime spécial de sécurité sociale des militaires.
+              Créée en 1949, la CNMSS est l'organisme de sécurité sociale dédié aux militaires.
+              Son siège est à Toulon et elle protège plus de 800 000 ressortissants en France et à l'étranger.
             </p>
           </motion.div>
           
@@ -331,8 +331,8 @@ const CNMSS = () => {
           >
             <h2 className="text-3xl font-bold mb-4">Missions et valeurs</h2>
             <p className="max-w-3xl mx-auto">
-              La CNMSS assure des missions essentielles pour garantir une protection sociale adaptée 
-              aux spécificités du métier militaire, en France comme à l'étranger.
+              La CNMSS assure des missions essentielles adaptées aux spécificités du métier militaire,
+              en France comme lors des opérations extérieures.
             </p>
           </motion.div>
           
@@ -417,8 +417,8 @@ const CNMSS = () => {
           >
             <h2 className="text-3xl font-bold mb-4">L'équipe informatique</h2>
             <p className="max-w-3xl mx-auto">
-              Le service informatique de la CNMSS est composé de professionnels dédiés au développement 
-              et à la maintenance des systèmes d'information essentiels au fonctionnement de l'organisme.
+              La Direction des Systèmes d'Information (DSI) de la CNMSS est structurée en départements 
+              spécialisés pour assurer le développement et la maintenance des systèmes d'information.
             </p>
           </motion.div>
           
@@ -432,7 +432,7 @@ const CNMSS = () => {
               {
                 name: "Équipe Développement",
                 role: "Développeurs",
-                description: "Conception et développement des applications métiers internes, maintenance évolutive et corrective."
+                description: "Conception et développement des applications métiers internes, maintenance évolutive et corrective. C'est dans cette équipe que j'ai effectué mon alternance."
               },
               {
                 name: "Équipe Infrastructure",
@@ -488,9 +488,8 @@ const CNMSS = () => {
           >
             <h2 className="text-3xl font-bold mb-4">Mon alternance à la CNMSS</h2>
             <p className="max-w-3xl mx-auto">
-              Dans le cadre de ma formation en BTS SIO option SLAM, j'effectue mon alternance au sein 
-              du service informatique de la CNMSS, où je participe au développement et à la maintenance 
-              d'applications métiers essentielles.
+              En tant qu'alternant BTS SIO option SLAM au sein de l'équipe Développement, 
+              j'ai contribué à la création et à l'amélioration d'applications stratégiques.
             </p>
           </motion.div>
           
@@ -499,29 +498,29 @@ const CNMSS = () => {
               {
                 title: "Missions principales",
                 content: [
-                  "Développement d'applications web internes avec PHP et Symfony",
-                  "Maintenance évolutive et corrective des applications existantes",
-                  "Participation aux réunions d'équipe et aux phases de conception",
-                  "Tests et documentation des développements réalisés",
-                  "Collaboration avec les équipes métiers pour comprendre les besoins"
+                  "Développement d'applications web avec PHP/Symfony",
+                  "Maintenance évolutive et corrective",
+                  "Participation aux phases de conception",
+                  "Tests et documentation technique",
+                  "Analyse des besoins métiers"
                 ]
               },
               {
                 title: "Compétences développées",
                 content: [
-                  "Maîtrise du framework Symfony et de l'écosystème PHP",
-                  "Gestion de bases de données PostgreSQL",
+                  "Framework Symfony et écosystème PHP",
+                  "Bases de données PostgreSQL",
                   "Méthodologie de développement en équipe",
-                  "Utilisation des outils de versioning (Git)",
-                  "Analyse et compréhension des besoins métiers"
+                  "Versioning avec Git",
+                  "Communication avec les équipes métiers"
                 ]
               },
               {
                 title: "Projets réalisés",
                 content: [
-                  { name: "CODAH", path: "/#projects-codah", description: "Application de consultation des droits, accès et habilitations" },
-                  { name: "FIB", path: "/#projects-fib", description: "Application de fichier des implémentations bancaires" },
-                  { name: "SIJ", path: "/#projects-sij", description: "Application de suivi des statistiques individuelles journalières" }
+                  { name: "CODAH", path: "/#projects-codah", description: "Gestion des droits et habilitations" },
+                  { name: "FIB", path: "/#projects-fib", description: "Gestion des implémentations bancaires" },
+                  { name: "SIJ", path: "/#projects-sij", description: "Suivi des statistiques individuelles" }
                 ]
               }
             ].map((section, i) => (

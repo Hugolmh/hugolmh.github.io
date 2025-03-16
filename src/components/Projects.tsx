@@ -593,14 +593,12 @@ const Projects = () => {
         'Recherche par utilisateur et département',
         'Accès aux référentiels multiples pour une gestion optimisée',
         'Extraction de données via un bouton Excel pour une analyse approfondie',
-        'Suivi des droits et habilitations en temps réel',
+        'Suivi des droits et habilitations journaliers',
       ],
       additionalImages: [
-        `${import.meta.env.BASE_URL}Capture2.PNG`,
-        `${import.meta.env.BASE_URL}CODAH/image005.png`,
-        `${import.meta.env.BASE_URL}CODAH/image009.png`,
         `${import.meta.env.BASE_URL}CODAH/image012.png`,
         `${import.meta.env.BASE_URL}CODAH/image013.png`,
+        `${import.meta.env.BASE_URL}CODAH/image005.png`,
         `${import.meta.env.BASE_URL}CODAH/image015.png`,
         `${import.meta.env.BASE_URL}CODAH/image016.png`,
         `${import.meta.env.BASE_URL}CODAH/image018.png`,
@@ -693,8 +691,7 @@ const Projects = () => {
       image: `${import.meta.env.BASE_URL}gsb.jpg`,
       tags: ['BTS SIO', 'SLAM', 'Projet de développement', 'PHP', 'MySQL'],
       features: [
-        'Conception et développement d\'une application web en php, javascript, sql',
-        'Mise en place d\'une base de données MySQL pour la gestion des utilisateurs et des frais.',
+        'Gestion des utilisateurs et des frais.',
         'Implémentation d\'un système d\'authentification sécurisé pour les visiteurs médicaux.',
         'Fonctionnalités de saisie, modification et consultation des fiches de frais.',
         'Tests unitaires et fonctionnels pour assurer la fiabilité de l\'application.'
@@ -730,18 +727,16 @@ const Projects = () => {
       image: `${import.meta.env.BASE_URL}nolark.jpg`,
       tags: ['BTS SIO', 'SLAM', 'HTML/CSS', 'JavaScript', 'PHP'],
       features: [
-        'Développement d\'un site web responsive avec HTML5, CSS3 et JavaScript',
-        'Catalogue de produits avec système de filtrage par catégorie et prix',
+        'Développement d\'un site web responsive avec HTML, CSS et JavaScript',
         'Formulaire de contact avec validation côté client et serveur',
         'Section informative sur la sécurité routière et les normes des casques',
-        'Intégration de vente avec graphiques interactifs',
         'Optimisation pour le référencement naturel (SEO)'
       ],
       additionalImages: [
         `${import.meta.env.BASE_URL}nolark2.jpg`,
         `${import.meta.env.BASE_URL}nolark3.jpg`
       ],
-      additionalInfo: 'Projet pédagogique réalisé dans le cadre du BTS SIO pour mettre en pratique les compétences en développement web front-end et back-end.',
+      additionalInfo: 'Projet pédagogique réalisé dans le cadre du BTS SIO pour mettre en pratique les compétences en développement web.',
       icon: <GraduationCap className="w-6 h-6" />,
       category: 'ecole',
       referentiel: [

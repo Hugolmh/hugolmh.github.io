@@ -66,7 +66,7 @@ const Education = () => {
       institution: 'Lycée Costebelle, Hyères',
       period: 'Septembre 2022 - Juin 2023',
       description: 'Spécialités : Numérique et Sciences Informatiques (NSI), Sciences Économiques et Sociales (SES).',
-      diploma: 'Baccalauréat Général',
+      diploma: 'Baccalauréat Général mention Assez Bien',
       icon: <GraduationCap className="w-6 h-6" />,
       details: [
         'Spécialité NSI : programmation Python, structures de données, bases de données',
