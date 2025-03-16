@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, X, ChevronLeft, ChevronRight, Maximize2, Minimize2, Briefcase, GraduationCap, User } from 'lucide-react';
+import { Code, X, ChevronLeft, ChevronRight, Maximize2, Minimize2, Briefcase, GraduationCap, User, Server } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 // Définir le type pour un projet
@@ -609,18 +609,18 @@ const Projects = () => {
       icon: <Briefcase className="w-6 h-6" />,
       category: 'entreprise',
       referentiel: [
-        'Mettre à disposition des utilisateurs un service informatique',
-        'Travailler en mode projet',
-        'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
-        'Gérer le patrimoine informatique'
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique'
       ],
       referentielDetails: {
-        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les droits et habilitations, améliorant ainsi l'efficacité des services administratifs.",
-        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
-        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les droits d'accès et les habilitations, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+        'B1.1 - Gérer le patrimoine informatique': 'Mise en place d\'un système de gestion des droits et habilitations, contribuant à la sécurisation du patrimoine informatique.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Utilisation de GLPI/Mantis pour le suivi des incidents et l\'évolution de l\'application selon les besoins des utilisateurs.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Développement d\'une application web moderne facilitant l\'accès aux informations d\'habilitation.',
+        'B1.4 - Travailler en mode projet': 'Application des méthodes agiles avec des sprints réguliers et une collaboration étroite avec les équipes métier.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Déploiement d\'une solution ergonomique pour la consultation et la gestion des droits d\'accès.'
       }
     },
     {
@@ -644,18 +644,18 @@ const Projects = () => {
       icon: <Briefcase className="w-6 h-6" />,
       category: 'entreprise',
       referentiel: [
-        'Mettre à disposition des utilisateurs un service informatique',
-        'Travailler en mode projet',
-        'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
-        'Gérer le patrimoine informatique'
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique'
       ],
       referentielDetails: {
-        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les informations bancaires, améliorant ainsi l'efficacité de la gestion financière de l'entreprise.",
-        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
-        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les informations bancaires, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+        'B1.1 - Gérer le patrimoine informatique': 'Gestion sécurisée des données bancaires et mise en place d\'un système de sauvegarde robuste.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Suivi des incidents via GLPI/Mantis et mise en place d\'un processus d\'amélioration continue.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Création d\'une interface web moderne pour l\'accès aux données bancaires.',
+        'B1.4 - Travailler en mode projet': 'Utilisation de méthodologies agiles pour le développement et la maintenance de l\'application.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Déploiement d\'une solution intuitive pour la consultation des informations bancaires.'
       }
     },
     {
@@ -673,18 +673,18 @@ const Projects = () => {
       icon: <Briefcase className="w-6 h-6" />,
       category: 'entreprise',
       referentiel: [
-        'Mettre à disposition des utilisateurs un service informatique',
-        'Travailler en mode projet',
-        'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
-        'Gérer le patrimoine informatique'
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique'
       ],
       referentielDetails: {
-        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter et d'analyser facilement leurs statistiques quotidiennes, améliorant ainsi la gestion des performances de l'entreprise.",
-        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-       'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
-        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données statistiques, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+        'B1.1 - Gérer le patrimoine informatique': 'Mise en place d\'un système sécurisé de gestion des données statistiques avec différents niveaux d\'accès.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Gestion des tickets GLPI/Mantis pour le support et l\'évolution des fonctionnalités.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Développement d\'une interface web pour le suivi des performances individuelles.',
+        'B1.4 - Travailler en mode projet': 'Collaboration avec les équipes métier et application des principes agiles.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Fourniture d\'un outil ergonomique pour le suivi des statistiques journalières.'
       }
     },
     {
@@ -708,20 +708,20 @@ const Projects = () => {
       icon: <GraduationCap className="w-6 h-6" />,
       category: 'ecole',
       referentiel: [
-        'Mettre à disposition des utilisateurs un service informatique',
-        'Travailler en mode projet',
-        'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
-        'Gérer le patrimoine informatique',
-        'Organiser son développement professionnel'
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique',
+        'B1.6 - Organiser son développement professionnel'
       ],
       referentielDetails: {
-        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter et de gérer facilement les frais médicaux, améliorant ainsi la gestion des soins de santé de l'organisation.",
-        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "J'ai mis en place un système de suivi des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
-        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données financières médicales, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation.",
-        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation."
+        'B1.1 - Gérer le patrimoine informatique': 'Mise en place d\'une architecture sécurisée pour la gestion des données de frais médicaux et configuration du système d\'authentification.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Implémentation d\'un système de suivi des bugs et des demandes d\'évolution pour améliorer continuellement l\'application.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Développement d\'une interface web moderne et intuitive pour la gestion des frais médicaux.',
+        'B1.4 - Travailler en mode projet': 'Application des méthodologies agiles pour la gestion du projet et collaboration avec les équipes métier.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Déploiement d\'une solution complète de gestion des frais avec documentation utilisateur.',
+        'B1.6 - Organiser son développement professionnel': 'Veille technologique sur les bonnes pratiques de développement web et de sécurité des données.'
       }
     },
     {
@@ -745,20 +745,20 @@ const Projects = () => {
       icon: <GraduationCap className="w-6 h-6" />,
       category: 'ecole',
       referentiel: [
-        'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
-        'Travailler en mode projet',
-        'Mettre à disposition des utilisateurs un service informatique',
-        'Organiser son développement professionnel',
-        'Gérer le patrimoine informatique'
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique',
+        'B1.6 - Organiser son développement professionnel'
       ],
       referentielDetails: {
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "J'ai mis en place un système de suivi des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
-        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
-        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les produits et de passer des commandes, améliorant ainsi la présence en ligne de l'entreprise.",
-        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation.",
-        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données des commandes et des clients, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+        'B1.1 - Gérer le patrimoine informatique': 'Mise en place d\'une architecture web sécurisée et gestion des ressources du site.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Implémentation d\'un système de feedback utilisateur et mise à jour régulière du catalogue.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Création d\'un site e-commerce optimisé pour le référencement et l\'expérience utilisateur.',
+        'B1.4 - Travailler en mode projet': 'Application des méthodologies de gestion de projet web et suivi des délais.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Déploiement d\'une plateforme e-commerce accessible et performante.',
+        'B1.6 - Organiser son développement professionnel': 'Veille technologique sur les bonnes pratiques du développement web et du e-commerce.'
       }
     },
     {
@@ -779,14 +779,49 @@ const Projects = () => {
       icon: <User className="w-6 h-6" />,
       category: 'personnel',
       referentiel: [
-        'Développer la présence en ligne de l\'organisation',
-        'Organiser son développement professionnel',
-        'Gérer son identité professionnelle'
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.6 - Organiser son développement professionnel'
       ],
       referentielDetails: {
-        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
-        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation.",
-        'Gérer son identité professionnelle': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation."
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Création d\'un portfolio professionnel moderne et optimisé pour présenter mes compétences et réalisations.',
+        'B1.4 - Travailler en mode projet': 'Application des principes de gestion de projet agile pour le développement et les mises à jour continues du portfolio.',
+        'B1.6 - Organiser son développement professionnel': 'Veille technologique sur les technologies web modernes et mise en pratique des compétences acquises.'
+      }
+    },
+    {
+      title: 'CREDIT GENERAL',
+      description: 'API bancaire développée en Java avec Spring Boot, simulant l\'interface bancaire pour le traitement des remboursements de frais de l\'application GSB. Cette API gère l\'authentification des paiements, la validation des transactions et le suivi des remboursements des visiteurs médicaux.',
+      image: `${import.meta.env.BASE_URL}gsb.jpg`,
+      tags: ['BTS SIO', 'SLAM', 'Java', 'Spring Boot', 'API REST', 'Microservices', 'Sécurité bancaire'],
+      features: [
+        'Authentification sécurisée des transactions avec Spring Security et JWT',
+        'Validation et traitement automatisé des demandes de remboursement',
+        'Interface REST pour l\'intégration avec l\'application GSB',
+        'Gestion des rôles et des autorisations pour les opérations bancaires',
+        'Système de notification pour le suivi des paiements',
+        'Journalisation détaillée des transactions pour l\'audit',
+        'Documentation interactive de l\'API avec Swagger'
+      ],
+      additionalImages: [],
+      additionalInfo: 'Ce projet simule une interface bancaire complète, démontrant la mise en œuvre de bonnes pratiques en matière de sécurité financière et d\'architecture microservices. Il complète le projet GSB en gérant l\'aspect financier des remboursements de frais.',
+      icon: <Server className="w-6 h-6" />,
+      category: 'ecole',
+      referentiel: [
+        'B1.1 - Gérer le patrimoine informatique',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
+        'B1.3 - Développer la présence en ligne de l\'organisation',
+        'B1.4 - Travailler en mode projet',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique',
+        'B1.6 - Organiser son développement professionnel'
+      ],
+      referentielDetails: {
+        'B1.1 - Gérer le patrimoine informatique': 'Mise en place d\'une architecture sécurisée pour les transactions bancaires, avec gestion des versions et de la configuration via Git et Maven.',
+        'B1.2 - Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Retour d\'incident via un chaier des charges hebdomadaire.',
+        'B1.3 - Développer la présence en ligne de l\'organisation': 'Création d\'une API REST moderne et sécurisée pour les opérations bancaires, documentation interactive.',
+        'B1.4 - Travailler en mode projet': 'Application des principes de gestion de projet agile pour le développement et les mises à jour continues de l\'api.',
+        'B1.5 - Mettre à disposition des utilisateurs un service informatique': 'Déploiement d\'une API bancaire robuste avec monitoring en temps réel et gestion des environnements.',
+        'B1.6 - Organiser son développement professionnel': 'Veille sur les bonnes pratiques de sécurité bancaire et les architectures modernes de microservices.'
       }
     }
   ];
