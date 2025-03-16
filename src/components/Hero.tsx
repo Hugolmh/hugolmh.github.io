@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Github, Linkedin, Code, Database, Server, BookOpen, Users, Globe, Monitor, Shield, Briefcase } from 'lucide-react';
+import { Mail, Github, Linkedin, Code, Database, Server, BookOpen, Users, Globe, Monitor, Shield, Briefcase, Building } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
 /**
@@ -209,8 +210,43 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Né le 20 mars 2004 • En alternance chez CNMSS à Toulon • Étudiant en BTS SIO SLAM
+              Né le 20 mars 2004 • <Link to="/cnmss" className={`inline-flex items-center font-medium ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}>
+                <Building className="w-4 h-4 mr-1" /> En alternance chez CNMSS
+              </Link> à Toulon • Étudiant en BTS SIO SLAM
             </motion.p>
+            
+            {/* Bouton CNMSS avec animation */}
+            <motion.div
+              className="mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Link to="/cnmss">
+                <motion.button
+                  className={`px-6 py-3 rounded-lg flex items-center ${
+                    darkMode 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                      : 'bg-blue-500 hover:bg-blue-600 text-white'
+                  } font-medium shadow-lg`}
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.1)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Building className="w-5 h-5 mr-2" />
+                  Découvrir la CNMSS
+                  <motion.span 
+                    className="ml-2"
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    →
+                  </motion.span>
+                </motion.button>
+              </Link>
+            </motion.div>
             
             {/* Compétences BTS SIO avec icônes animées */}
             <motion.div 

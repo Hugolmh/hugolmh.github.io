@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Code, Database, Globe, Terminal, Star, StarHalf, FileCode, Server, Shield } from 'lucide-react';
@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import { 
   SiJavascript, SiTypescript, SiPython, SiPhp, 
   SiSymfony, SiNodedotjs, SiSpring, SiReact,
-  SiPostgresql, SiMysql, SiMongodb,
+  SiPostgresql, SiMysql, SiMongodb, SiMariadb,
   SiGit, SiLinux, SiDocker
 } from 'react-icons/si';
 import { DiCssdeck, DiMsqlServer } from 'react-icons/di';
@@ -18,7 +18,18 @@ import { FaCode } from 'react-icons/fa';
  * @param level - Niveau de compétence de 1 à 5
  * @param darkMode - Mode sombre activé ou non
  */
-const SkillLevel = ({ level, darkMode }: { level: number; darkMode: boolean }) => {
+const SkillLevel = ({ level, darkMode, skillName }: { level: number; darkMode: boolean; skillName: string }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+  
+  // Fonction pour obtenir le texte du niveau de compétence
+  const getLevelText = (level: number): string => {
+    if (level < 1.5) return "Débutant - Connaissances de base";
+    if (level < 2.5) return "Intermédiaire - Pratique régulière";
+    if (level < 3.5) return "Avancé - Bonne maîtrise";
+    if (level < 4.5) return "Expert - Maîtrise approfondie";
+    return "Maître - Expertise complète";
+  };
+  
   // Créer un tableau de 5 étoiles
   const stars = Array.from({ length: 5 }, (_, i) => {
     if (i < Math.floor(level)) {
@@ -48,7 +59,31 @@ const SkillLevel = ({ level, darkMode }: { level: number; darkMode: boolean }) =
     }
   });
 
-  return <div className="flex space-x-1 mt-1">{stars}</div>;
+  return (
+    <div 
+      className="flex space-x-1 mt-1 relative"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      {stars}
+      {showTooltip && (
+        <div 
+          className={`absolute z-10 right-0 bottom-full mb-2 p-2 rounded-lg shadow-lg text-sm ${
+            darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+          } transform transition-opacity duration-200 ease-in-out w-48`}
+        >
+          <p className="font-semibold mb-1">{skillName}</p>
+          <p>{getLevelText(level)}</p>
+          <div className="w-full bg-gray-200 rounded-full h-2 mt-1 dark:bg-gray-700">
+            <div 
+              className="bg-blue-600 h-2 rounded-full" 
+              style={{ width: `${(level / 5) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 /**
@@ -96,6 +131,7 @@ const Skills = () => {
       skills: [
         { name: 'PostgreSQL', icon: <SiPostgresql className="w-8 h-8 text-blue-700" />, level: 3.5 },
         { name: 'MySQL', icon: <SiMysql className="w-8 h-8 text-blue-800" />, level: 3.5 },
+        { name: 'MariaDB', icon: <SiMariadb className="w-8 h-8 text-amber-600" />, level: 3.5 },
         { name: 'MongoDB', icon: <SiMongodb className="w-8 h-8 text-green-700" />, level: 1 }
       ]
     },
@@ -120,62 +156,40 @@ const Skills = () => {
     }
   ];
 
-  // Légende des niveaux
-  const skillLevels = [
-    { level: 1, label: 'Débutant' },
-    { level: 2, label: 'Intermédiaire' },
-    { level: 3, label: 'Avancé' },
-    { level: 4, label: 'Confirmé' },
-    { level: 5, label: 'Expert' }
-  ];
-
   return (
-    <section id="skills" className={`py-20 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-colors duration-300`}>
-      <div className="container mx-auto px-6">
-        {/* Titre de la section */}
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Compétences</h2>
+          <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Compétences Techniques
+          </h2>
           <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            Mes compétences techniques et outils maîtrisés
+            Mes compétences techniques acquises au cours de ma formation et de mes expériences professionnelles.
           </p>
-          
-          {/* Légende des niveaux */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mt-6"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            {skillLevels.map((item, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <SkillLevel level={item.level} darkMode={darkMode} />
-                <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.label}</span>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
 
-        {/* Grille des catégories de compétences */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              className={`rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-700 hover:bg-gray-650' : 'bg-white hover:bg-gray-50'} transition-all duration-300`}
-              whileHover={{ y: -5 }}
+              className={`rounded-xl p-6 shadow-lg ${
+                darkMode ? 'bg-gray-800 shadow-gray-900/30' : 'bg-white shadow-gray-200/70'
+              }`}
             >
-              {/* En-tête de la catégorie */}
               <div className="flex items-center mb-6">
                 <motion.div 
-                  className={`p-2 rounded-lg mr-4 ${darkMode ? 'bg-gray-600 text-blue-300' : 'bg-blue-50 text-blue-500'}`}
+                  className={`p-3 rounded-lg mr-4 ${
+                    darkMode ? 'bg-gray-700 text-blue-300' : 'bg-blue-50 text-blue-500'
+                  }`}
                   whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                   transition={{ duration: 0.5 }}
                 >
@@ -186,41 +200,25 @@ const Skills = () => {
                 </h3>
               </div>
               
-              {/* Grille des compétences */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ul className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
-                  <motion.div
+                  <motion.li
                     key={skill.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.4, delay: categoryIndex * 0.2 + skillIndex * 0.1 }}
-                    className={`flex flex-col p-4 rounded-lg ${darkMode ? 'bg-gray-800 hover:bg-gray-600' : 'bg-gray-50 hover:bg-gray-100'} transition-colors duration-200`}
-                    whileHover={{ scale: 1.03 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                    transition={{ duration: 0.4, delay: (categoryIndex * 0.2) + (skillIndex * 0.1) }}
+                    className="flex items-center justify-between"
                   >
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 mr-3 flex items-center justify-center">
-                        {skill.icon}
-                      </div>
-                      <div>
-                        <span className={`font-medium ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
-                          {skill.name}
-                        </span>
-                        <SkillLevel level={skill.level} darkMode={darkMode} />
-                      </div>
+                    <div className="flex items-center">
+                      <div className="mr-3">{skill.icon}</div>
+                      <span className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {skill.name}
+                      </span>
                     </div>
-                    
-                    {/* Barre de progression */}
-                    <div className={`w-full h-1.5 mt-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} overflow-hidden`}>
-                      <motion.div 
-                        className="h-full bg-blue-500"
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: `${(skill.level / 5) * 100}%` } : {}}
-                        transition={{ duration: 1, delay: categoryIndex * 0.2 + skillIndex * 0.1 + 0.3 }}
-                      />
-                    </div>
-                  </motion.div>
+                    <SkillLevel level={skill.level} darkMode={darkMode} skillName={skill.name} />
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           ))}
         </div>

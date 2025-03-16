@@ -29,34 +29,21 @@ const Education = () => {
 
   const education = [
     {
-      title: 'Développeur Informatique en alternance',
-      institution: 'CNMSS, Toulon',
+      title: 'BTS SIO option SLAM - 2ème année en alternance',
+      institution: 'Lycée Bonaparte, Toulon & CNMSS, Toulon',
       period: 'Septembre 2024 - A ce jour',
-      description: 'Développement et maintenance d\'applications métiers pour la Caisse Nationale Militaire de Sécurité Sociale (CNMSS).',
-      diploma: 'BTS SIO en cours d\'obtention',
-      icon: <Building2 className="w-6 h-6" />,
-      details: [
-        'Participation au développement d\'applications web internes',
-        'Maintenance et évolution des applications existantes',
-        'Collaboration avec les équipes métier pour comprendre les besoins',
-        'Utilisation des technologies PHP, Symfony, JavaScript'
-      ]
-    },
-    {
-      title: 'BTS SIO option SLAM - 2ème année',
-      institution: 'Lycée Bonaparte, Toulon',
-      period: 'Septembre 2024 - A ce jour',
-      description: 'Formation en alternance spécialisée en Solutions Logicielles et Applications Métiers.',
+      description: 'Formation en alternance spécialisée en Solutions Logicielles et Applications Métiers, combinée avec une expérience professionnelle à la CNMSS.',
       diploma: 'BTS SIO en cours d\'obtention',
       icon: <GraduationCap className="w-6 h-6" />,
       details: [
-      'Préparation aux épreuves du BTS',
-      'Approfondissement des compétences en développement web avec des projets plus complexes',
-      'Introduction aux frameworks modernes comme Spring Boot',
-      'Gestion de projet et méthodologies agiles',
-      'Développement d\'applications en équipe avec intégration continue',
-      'Sécurité des applications web et bonnes pratiques de développement',
-        
+        'Préparation aux épreuves du BTS tout en travaillant en entreprise',
+        'Développement et maintenance d\'applications métiers pour la Caisse Nationale Militaire de Sécurité Sociale (CNMSS)',
+        'Approfondissement des compétences en développement web avec des projets plus complexes',
+        'Utilisation des technologies PHP, Symfony, JavaScript en environnement professionnel',
+        'Participation au développement d\'applications web internes',
+        'Collaboration avec les équipes métier pour comprendre les besoins',
+        'Gestion de projet et méthodologies agiles en contexte réel',
+        'Développement d\'applications en équipe avec intégration continue',
       ]
     },
     {

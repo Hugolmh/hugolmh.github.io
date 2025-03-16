@@ -16,17 +16,24 @@ interface Project {
   icon: JSX.Element;
   category: 'entreprise' | 'ecole' | 'personnel';
   referentiel?: string[];
+  referentielDetails?: Record<string, string>;
 }
 
 // Composant pour l'affichage d'une image en plein écran
 const FullscreenImage = ({ 
   src, 
   alt, 
-  onClose 
+  onClose,
+  allImages,
+  currentIndex,
+  onChangeImage
 }: { 
   src: string; 
   alt: string; 
   onClose: () => void;
+  allImages: string[];
+  currentIndex: number;
+  onChangeImage: (newIndex: number) => void;
 }) => {
   const { darkMode } = useTheme();
   
@@ -34,11 +41,31 @@ const FullscreenImage = ({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') {
+        const newIndex = currentIndex === 0 ? allImages.length - 1 : currentIndex - 1;
+        onChangeImage(newIndex);
+      }
+      if (e.key === 'ArrowRight') {
+        const newIndex = currentIndex === allImages.length - 1 ? 0 : currentIndex + 1;
+        onChangeImage(newIndex);
+      }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, currentIndex, allImages.length, onChangeImage]);
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newIndex = currentIndex === 0 ? allImages.length - 1 : currentIndex - 1;
+    onChangeImage(newIndex);
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newIndex = currentIndex === allImages.length - 1 ? 0 : currentIndex + 1;
+    onChangeImage(newIndex);
+  };
   
   return (
     <motion.div 
@@ -58,7 +85,7 @@ const FullscreenImage = ({
         <img 
           src={src} 
           alt={alt} 
-          className="max-w-full max-h-full object-contain" 
+          className="max-w-full max-h-[85vh] object-contain" 
         />
         <button 
           onClick={onClose}
@@ -67,6 +94,47 @@ const FullscreenImage = ({
         >
           <X size={24} />
         </button>
+
+        {/* Navigation des images */}
+        {allImages.length > 1 && (
+          <>
+            <motion.button 
+              onClick={handlePrevImage}
+              className={`absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full ${darkMode ? 'bg-gray-800/80 text-white' : 'bg-white/80 text-gray-800'} hover:bg-opacity-100`}
+              aria-label="Image précédente"
+              whileHover={{ scale: 1.1, x: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ChevronLeft size={28} />
+            </motion.button>
+            <motion.button 
+              onClick={handleNextImage}
+              className={`absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full ${darkMode ? 'bg-gray-800/80 text-white' : 'bg-white/80 text-gray-800'} hover:bg-opacity-100`}
+              aria-label="Image suivante"
+              whileHover={{ scale: 1.1, x: 2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ChevronRight size={28} />
+            </motion.button>
+            
+            {/* Indicateur de position */}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+              {allImages.map((_, index) => (
+                <motion.button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onChangeImage(index);
+                  }}
+                  className={`w-2 h-2 rounded-full ${currentIndex === index ? 'bg-blue-500' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`}
+                  whileHover={{ scale: 1.5 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={`Aller à l'image ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </motion.div>
     </motion.div>
   );
@@ -77,6 +145,7 @@ const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => v
   const { darkMode } = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
   const allImages = [project.image, ...(project.additionalImages || [])];
 
   const handlePrevImage = (e: React.MouseEvent) => {
@@ -107,6 +176,12 @@ const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => v
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [allImages.length, onClose, fullscreenImage]);
+
+  // Fonction pour changer l'image en mode plein écran
+  const handleChangeFullscreenImage = (newIndex: number) => {
+    setCurrentImageIndex(newIndex);
+    setFullscreenImage(allImages[newIndex]);
+  };
 
   return (
     <motion.div 
@@ -254,14 +329,33 @@ const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => v
             </ul>
             
             {/* Référentiel BTS SIO */}
-            {project.referentiel && (
-              <div className="mt-4">
-                <h4 className={`text-xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Référentiel BTS SIO</h4>
-                <ul className="space-y-2 mb-4">
-                  {project.referentiel.map((ref, i) => (
-                    <li key={i} className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                      {ref}
+            {project.referentiel && project.referentiel.length > 0 && (
+              <div className="mt-6">
+                <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-800'} mb-2`}>
+                  Référentiel BTS SIO
+                </h3>
+                <ul className="space-y-2">
+                  {project.referentiel.map((item, index) => (
+                    <li 
+                      key={index} 
+                      className={`flex items-start ${darkMode ? 'text-gray-300' : 'text-gray-700'} relative`}
+                      onMouseEnter={() => setActiveTooltip(item)}
+                      onMouseLeave={() => setActiveTooltip(null)}
+                    >
+                      <div className="min-w-5 mt-1 mr-2">•</div>
+                      <span className="relative cursor-help border-b border-dotted border-gray-500">
+                        {item}
+                        {activeTooltip === item && (
+                          <div 
+                            className={`absolute z-10 left-0 bottom-full mb-2 p-3 w-64 rounded-lg shadow-lg text-sm ${
+                              darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                            } transform transition-opacity duration-200 ease-in-out`}
+                          >
+                            {project.referentielDetails?.[item] || 
+                              "Dans ce projet, j'ai mis en pratique cette compétence du référentiel BTS SIO en développant des solutions adaptées aux besoins spécifiques de l'organisation."}
+                          </div>
+                        )}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -294,10 +388,172 @@ const ProjectPopup = ({ project, onClose }: { project: Project; onClose: () => v
           <FullscreenImage 
             src={fullscreenImage} 
             alt={`${project.title} - Vue plein écran`} 
-            onClose={() => setFullscreenImage(null)} 
+            onClose={() => setFullscreenImage(null)}
+            allImages={allImages}
+            currentIndex={currentImageIndex}
+            onChangeImage={handleChangeFullscreenImage}
           />
         )}
       </AnimatePresence>
+    </motion.div>
+  );
+};
+
+// Composant pour afficher une carte de projet dans la grille
+const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => void }) => {
+  const { darkMode } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
+  
+  return (
+    <motion.div 
+      className={`h-full rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      onClick={onClick}
+      id={`projects-${project.title.toLowerCase()}`}
+    >
+      <div className="relative h-48 overflow-hidden group">
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-500"
+          whileHover={{ scale: 1.05 }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        
+        {/* Indicateur de catégorie */}
+        <div className="absolute top-4 left-4">
+          <motion.div 
+            className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${
+              project.category === 'entreprise' 
+                ? 'bg-blue-500/80 text-white' 
+                : project.category === 'ecole' 
+                  ? 'bg-green-500/80 text-white' 
+                  : 'bg-purple-500/80 text-white'
+            }`}
+            whileHover={{ scale: 1.05 }}
+          >
+            {project.category === 'entreprise' && <Briefcase className="w-3 h-3" />}
+            {project.category === 'ecole' && <GraduationCap className="w-3 h-3" />}
+            {project.category === 'personnel' && <User className="w-3 h-3" />}
+            <span>
+              {project.category === 'entreprise' ? 'Entreprise' : 
+               project.category === 'ecole' ? 'Formation' : 'Personnel'}
+            </span>
+          </motion.div>
+        </div>
+        
+        {/* Indicateur de clic pour voir plus */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <motion.div 
+            className={`px-4 py-2 rounded-full ${darkMode ? 'bg-blue-600/80' : 'bg-blue-500/80'} text-white text-sm font-medium`}
+            whileHover={{ scale: 1.05 }}
+          >
+            Cliquez pour voir plus
+          </motion.div>
+        </div>
+        
+        <div className="absolute bottom-4 left-4 right-4">
+          <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+          <div className="flex flex-wrap gap-2">
+            {project.tags.slice(0, 3).map((tag, i) => (
+              <motion.span
+                key={i}
+                className="px-2 py-1 bg-white/20 text-white rounded-full text-sm backdrop-blur-sm"
+                whileHover={{ scale: 1.05 }}
+              >
+                {tag}
+              </motion.span>
+            ))}
+            {project.tags.length > 3 && (
+              <motion.span
+                className="px-2 py-1 bg-white/20 text-white rounded-full text-sm backdrop-blur-sm"
+                whileHover={{ scale: 1.05 }}
+              >
+                +{project.tags.length - 3}
+              </motion.span>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="flex items-center mb-4">
+          <motion.div 
+            className={`p-2 rounded-lg mr-4 ${darkMode ? 'bg-gray-700 text-blue-300' : 'bg-blue-50 text-blue-500'}`}
+            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            transition={{ duration: 0.5 }}
+          >
+            {project.icon}
+          </motion.div>
+          <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.description}</p>
+        </div>
+        <ul className="space-y-2 mb-4">
+          {project.features.slice(0, 2).map((feature, i) => (
+            <li key={i} className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+              {feature}
+            </li>
+          ))}
+          {project.features.length > 2 && (
+            <li className={`text-sm italic ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              + {project.features.length - 2} autres fonctionnalités...
+            </li>
+          )}
+        </ul>
+        
+        {/* Référentiel BTS SIO */}
+        {project.referentiel && project.referentiel.length > 0 && (
+          <div className="mt-6">
+            <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-800'} mb-2`}>
+              Référentiel BTS SIO
+            </h3>
+            <ul className="space-y-2">
+              {project.referentiel.map((item, index) => (
+                <li 
+                  key={index} 
+                  className={`flex items-start ${darkMode ? 'text-gray-300' : 'text-gray-700'} relative`}
+                  onMouseEnter={() => setActiveTooltip(item)}
+                  onMouseLeave={() => setActiveTooltip(null)}
+                >
+                  <div className="min-w-5 mt-1 mr-2">•</div>
+                  <span className="relative cursor-help border-b border-dotted border-gray-500">
+                    {item}
+                    {activeTooltip === item && (
+                      <div 
+                        className={`absolute z-10 left-0 bottom-full mb-2 p-3 w-64 rounded-lg shadow-lg text-sm ${
+                          darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+                        } transform transition-opacity duration-200 ease-in-out`}
+                      >
+                        {project.referentielDetails?.[item] || 
+                          "Dans ce projet, j'ai mis en pratique cette compétence du référentiel BTS SIO en développant des solutions adaptées aux besoins spécifiques de l'organisation."}
+                      </div>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {/* Indicateur de galerie d'images */}
+        {project.additionalImages && project.additionalImages.length > 0 && (
+          <div className={`text-sm ${darkMode ? 'text-blue-300' : 'text-blue-600'} flex items-center mt-4`}>
+            <span className="mr-2">Voir {project.additionalImages.length + 1} images</span>
+            <div className="flex space-x-1">
+              {[...Array(Math.min(3, project.additionalImages.length + 1))].map((_, i) => (
+                <motion.div 
+                  key={i} 
+                  className="w-2 h-2 rounded-full bg-blue-500"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 };
@@ -341,6 +597,13 @@ const Projects = () => {
       ],
       additionalImages: [
         `${import.meta.env.BASE_URL}Capture2.PNG`,
+        `${import.meta.env.BASE_URL}CODAH/image005.png`,
+        `${import.meta.env.BASE_URL}CODAH/image009.png`,
+        `${import.meta.env.BASE_URL}CODAH/image012.png`,
+        `${import.meta.env.BASE_URL}CODAH/image013.png`,
+        `${import.meta.env.BASE_URL}CODAH/image015.png`,
+        `${import.meta.env.BASE_URL}CODAH/image016.png`,
+        `${import.meta.env.BASE_URL}CODAH/image018.png`,
       ],
       additionalInfo: 'Cette application a été développée pour améliorer l\'efficacité des services administratifs.',
       icon: <Briefcase className="w-6 h-6" />,
@@ -351,7 +614,14 @@ const Projects = () => {
         'Développer la présence en ligne de l\'organisation',
         'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
         'Gérer le patrimoine informatique'
-      ]
+      ],
+      referentielDetails: {
+        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les droits et habilitations, améliorant ainsi l'efficacité des services administratifs.",
+        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
+        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les droits d'accès et les habilitations, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+      }
     },
     {
       title: 'FIB',
@@ -363,7 +633,13 @@ const Projects = () => {
         'Accès aux informations bancaires',
         'Recherche avancée par département ou ville',
       ],
-      additionalImages: [],
+      additionalImages: [
+        `${import.meta.env.BASE_URL}FIB/image012.png`,
+        `${import.meta.env.BASE_URL}FIB/image013.png`,
+        `${import.meta.env.BASE_URL}FIB/image014.png`,
+        `${import.meta.env.BASE_URL}FIB/image015.png`,
+        `${import.meta.env.BASE_URL}FIB/image016.png`,
+      ],
       additionalInfo: 'Cette plateforme permet une gestion financière simplifiée et efficace.',
       icon: <Briefcase className="w-6 h-6" />,
       category: 'entreprise',
@@ -373,7 +649,14 @@ const Projects = () => {
         'Développer la présence en ligne de l\'organisation',
         'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
         'Gérer le patrimoine informatique'
-      ]
+      ],
+      referentielDetails: {
+        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les informations bancaires, améliorant ainsi l'efficacité de la gestion financière de l'entreprise.",
+        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
+        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les informations bancaires, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+      }
     },
     {
       title: 'SIJ',
@@ -395,7 +678,14 @@ const Projects = () => {
         'Développer la présence en ligne de l\'organisation',
         'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
         'Gérer le patrimoine informatique'
-      ]
+      ],
+      referentielDetails: {
+        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter et d'analyser facilement leurs statistiques quotidiennes, améliorant ainsi la gestion des performances de l'entreprise.",
+        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+       'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "Système de suivi grâce aux tickets GLPI/Mantis des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
+        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données statistiques, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+      }
     },
     {
       title: 'GSB',
@@ -409,7 +699,11 @@ const Projects = () => {
         'Fonctionnalités de saisie, modification et consultation des fiches de frais.',
         'Tests unitaires et fonctionnels pour assurer la fiabilité de l\'application.'
       ],
-      additionalImages: [],
+      additionalImages: [
+        `${import.meta.env.BASE_URL}GSB/gsb-1.png`,
+        `${import.meta.env.BASE_URL}GSB/gsb-2.png`,
+        `${import.meta.env.BASE_URL}GSB/gsb-3.png`
+      ],
       additionalInfo: 'Ce projet a été réalisé dans le cadre du BTS SIO option SLAM, mettant en œuvre des compétences en développement web, gestion de bases de données et sécurité applicative.',
       icon: <GraduationCap className="w-6 h-6" />,
       category: 'ecole',
@@ -420,7 +714,15 @@ const Projects = () => {
         'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
         'Gérer le patrimoine informatique',
         'Organiser son développement professionnel'
-      ]
+      ],
+      referentielDetails: {
+        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter et de gérer facilement les frais médicaux, améliorant ainsi la gestion des soins de santé de l'organisation.",
+        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "J'ai mis en place un système de suivi des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
+        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données financières médicales, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation.",
+        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation."
+      }
     },
     {
       title: 'Nolark',
@@ -439,17 +741,25 @@ const Projects = () => {
         `${import.meta.env.BASE_URL}nolark2.jpg`,
         `${import.meta.env.BASE_URL}nolark3.jpg`
       ],
-      additionalInfo: 'Projet pédagogique réalisé dans le cadre du BTS SIO pour mettre en pratique les compétences en développement web front-end et back-end. Le site est accessible à l\'adresse http://nolark.it-fernandeztony.com/',
+      additionalInfo: 'Projet pédagogique réalisé dans le cadre du BTS SIO pour mettre en pratique les compétences en développement web front-end et back-end.',
       icon: <GraduationCap className="w-6 h-6" />,
       category: 'ecole',
       referentiel: [
         'Développer la présence en ligne de l\'organisation',
-        'Répondre aux incidents et aux demandes d’assistance et d’évolution',
+        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution',
         'Travailler en mode projet',
         'Mettre à disposition des utilisateurs un service informatique',
         'Organiser son développement professionnel',
         'Gérer le patrimoine informatique'
-      ]
+      ],
+      referentielDetails: {
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+        'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': "J'ai mis en place un système de suivi des incidents et des demandes d'évolution pour assurer la maintenance et l'amélioration continue de l'application.",
+        'Travailler en mode projet': "J'ai participé à la gestion du projet en utilisant des méthodologies agiles, en collaborant avec les équipes métier pour définir les besoins et planifier les développements.",
+        'Mettre à disposition des utilisateurs un service informatique': "J'ai développé cette application pour permettre aux utilisateurs de consulter facilement les produits et de passer des commandes, améliorant ainsi la présence en ligne de l'entreprise.",
+        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation.",
+        'Gérer le patrimoine informatique': "L'application permet de gérer efficacement les données des commandes et des clients, contribuant ainsi à la sécurité du patrimoine informatique de l'organisation."
+      }
     },
     {
       title: 'Portfolio Personnel',
@@ -472,7 +782,12 @@ const Projects = () => {
         'Développer la présence en ligne de l\'organisation',
         'Organiser son développement professionnel',
         'Gérer son identité professionnelle'
-      ]
+      ],
+      referentielDetails: {
+        'Développer la présence en ligne de l\'organisation': "Cette application web interne contribue à la digitalisation des processus de l'organisation et améliore la présence numérique de l'entreprise.",
+        'Organiser son développement professionnel': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation.",
+        'Gérer son identité professionnelle': "J'ai organisé mon développement professionnel en m'impliquant dans la gestion du projet, en suivant des méthodologies agiles et en collaborant avec les équipes métier pour définir et mettre en œuvre des solutions adaptées aux besoins spécifiques de l'organisation."
+      }
     }
   ];
 
@@ -582,146 +897,12 @@ const Projects = () => {
                 <motion.div
                   key={project.title}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`rounded-lg shadow-lg overflow-hidden cursor-pointer ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'} transition-all duration-300`}
-                  onClick={() => setSelectedProject(project)}
-                  whileHover={{ y: -5 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}
+                  id={`projects-${project.title.toLowerCase()}`}
                 >
-                  <div className="relative h-48 overflow-hidden group">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500"
-                      whileHover={{ scale: 1.05 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    
-                    {/* Indicateur de catégorie */}
-                    <div className="absolute top-4 left-4">
-                      <motion.div 
-                        className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${
-                          project.category === 'entreprise' 
-                            ? 'bg-blue-500/80 text-white' 
-                            : project.category === 'ecole' 
-                              ? 'bg-green-500/80 text-white' 
-                              : 'bg-purple-500/80 text-white'
-                        }`}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {project.category === 'entreprise' && <Briefcase className="w-3 h-3" />}
-                        {project.category === 'ecole' && <GraduationCap className="w-3 h-3" />}
-                        {project.category === 'personnel' && <User className="w-3 h-3" />}
-                        <span>
-                          {project.category === 'entreprise' ? 'Entreprise' : 
-                           project.category === 'ecole' ? 'Formation' : 'Personnel'}
-                        </span>
-                      </motion.div>
-                    </div>
-                    
-                    {/* Indicateur de clic pour voir plus */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <motion.div 
-                        className={`px-4 py-2 rounded-full ${darkMode ? 'bg-blue-600/80' : 'bg-blue-500/80'} text-white text-sm font-medium`}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        Cliquez pour voir plus
-                      </motion.div>
-                    </div>
-                    
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.slice(0, 3).map((tag, i) => (
-                          <motion.span
-                            key={i}
-                            className="px-2 py-1 bg-white/20 text-white rounded-full text-sm backdrop-blur-sm"
-                            whileHover={{ scale: 1.05 }}
-                          >
-                            {tag}
-                          </motion.span>
-                        ))}
-                        {project.tags.length > 3 && (
-                          <motion.span
-                            className="px-2 py-1 bg-white/20 text-white rounded-full text-sm backdrop-blur-sm"
-                            whileHover={{ scale: 1.05 }}
-                          >
-                            +{project.tags.length - 3}
-                          </motion.span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-4">
-                      <motion.div 
-                        className={`p-2 rounded-lg mr-4 ${darkMode ? 'bg-gray-700 text-blue-300' : 'bg-blue-50 text-blue-500'}`}
-                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {project.icon}
-                      </motion.div>
-                      <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.description}</p>
-                    </div>
-                    <ul className="space-y-2 mb-4">
-                      {project.features.slice(0, 2).map((feature, i) => (
-                        <li key={i} className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                          <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                          {feature}
-                        </li>
-                      ))}
-                      {project.features.length > 2 && (
-                        <li className={`text-sm italic ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                          + {project.features.length - 2} autres fonctionnalités...
-                        </li>
-                      )}
-                    </ul>
-                    
-                    {/* Référentiel BTS SIO */}
-                    {project.referentiel && (
-                      <div className="mt-4">
-                        <h4 className={`text-sm font-medium mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                          Référentiel BTS SIO:
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.referentiel.slice(0, 1).map((ref, i) => (
-                            <motion.span
-                              key={i}
-                              className={`px-2 py-1 text-xs rounded-full ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}
-                              whileHover={{ scale: 1.05 }}
-                            >
-                              {ref.length > 30 ? ref.substring(0, 30) + '...' : ref}
-                            </motion.span>
-                          ))}
-                          {project.referentiel.length > 1 && (
-                            <motion.span
-                              className={`px-2 py-1 text-xs rounded-full ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}
-                              whileHover={{ scale: 1.05 }}
-                            >
-                              +{project.referentiel.length - 1} autres
-                            </motion.span>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Indicateur de galerie d'images */}
-                    {project.additionalImages && project.additionalImages.length > 0 && (
-                      <div className={`text-sm ${darkMode ? 'text-blue-300' : 'text-blue-600'} flex items-center mt-4`}>
-                        <span className="mr-2">Voir {project.additionalImages.length + 1} images</span>
-                        <div className="flex space-x-1">
-                          {[...Array(Math.min(3, project.additionalImages.length + 1))].map((_, i) => (
-                            <motion.div 
-                              key={i} 
-                              className="w-2 h-2 rounded-full bg-blue-500"
-                              animate={{ scale: [1, 1.2, 1] }}
-                              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <ProjectCard project={project} onClick={() => setSelectedProject(project)} />
                 </motion.div>
               ))
             )}
