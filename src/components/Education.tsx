@@ -150,8 +150,8 @@ const Education = () => {
               </motion.div>
               
               {/* Carte de formation */}
-              <motion.div 
-                className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800 hover:bg-gray-750' : 'bg-white hover:bg-gray-50'} transition-all duration-300`}
+              <motion.div
+                className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'} transition-all duration-300`}
                 whileHover={{ y: -5 }}
               >
                 <div className="flex justify-between items-start">
