@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, X, Github, Linkedin, Mail, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
 const Header = () => {
@@ -14,6 +15,7 @@ const Header = () => {
     { title: 'Projets', href: '#projects' },
     { title: 'Compétences', href: '#skills' },
     { title: 'Contact', href: '#contact' },
+    { title: 'Formulaire', href: '/contact', link: true },
   ];
 
   return (
@@ -33,16 +35,32 @@ const Header = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item, index) => (
-              <motion.a
-                key={item.title}
-                href={item.href}
-                className={`${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {item.title}
-              </motion.a>
+              item.link ? (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link
+                    to={item.href}
+                    className={`${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+                  >
+                    {item.title}
+                  </Link>
+                </motion.div>
+              ) : (
+                <motion.a
+                  key={item.title}
+                  href={item.href}
+                  className={`${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  {item.title}
+                </motion.a>
+              )
             ))}
             
             {/* Bouton de mode sombre */}
@@ -88,14 +106,25 @@ const Header = () => {
           >
             <div className={`py-4 space-y-4 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
               {menuItems.map((item) => (
-                <a
-                  key={item.title}
-                  href={item.href}
-                  className={`block ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.title}
-                </a>
+                item.link ? (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className={`block ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className={`block ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.title}
+                  </a>
+                )
               ))}
             </div>
           </motion.div>
