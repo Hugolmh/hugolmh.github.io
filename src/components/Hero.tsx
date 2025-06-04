@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Github, Linkedin, Code, Database, Server, BookOpen, Users, Globe, Monitor, Shield, Briefcase, Building, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { calculateAge } from '../utils/calculateAge';
 
 /**
  * Composant Hero - Section d'accueil du portfolio
@@ -115,17 +116,6 @@ const Hero = () => {
   // Définir les transitions pour les compétences
   const skillHoverTransition = { type: "spring", stiffness: 400, damping: 10 };
 
-  // Calculer l'âge dynamiquement
-  const calculateAge = () => {
-    const birthDate = new Date(2004, 2, 20); // Mois commence à 0 (mars = 2)
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  };
 
   return (
     <section id="home" className={`min-h-screen pt-20 flex items-center relative overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
