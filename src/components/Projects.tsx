@@ -412,7 +412,7 @@ const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => vo
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       onClick={onClick}
-      id={`projects-${project.title.toLowerCase()}`}
+      id={`projects-${project.title.toLowerCase().replace(/\s+/g, '-')}`}
     >
       <div className="relative h-48 overflow-hidden group">
         <motion.img
@@ -930,7 +930,7 @@ const Projects = () => {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={`rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}
-                  id={`projects-${project.title.toLowerCase()}`}
+                  id={`projects-${project.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <ProjectCard project={project} onClick={() => setSelectedProject(project)} />
                 </motion.div>
