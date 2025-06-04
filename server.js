@@ -9,15 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT || 587),
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+// Utilisation d'un compte de test Ethereal pour éviter de saisir des identifiants SMTP
+// Les e-mails ne sont pas réellement envoyés mais consultables via une URL de prévisualisation
+const testAccountPromise = nodemailer.createTestAccount();
 
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
@@ -26,21 +20,40 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    await transporter.sendMail({
+    const testAccount = await testAccountPromise;
+    const transporter = nodemailer.createTransport({
+      host: testAccount.smtp.host,
+      port: testAccount.smtp.port,
+      secure: testAccount.smtp.secure,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass
+      }
+    });
+
+    const adminMail = process.env.CONTACT_EMAIL || 'no-reply@example.com';
+
+    const infoAdmin = await transporter.sendMail({
       from: `${name} <${email}>`,
-      to: process.env.CONTACT_EMAIL,
+      to: adminMail,
       subject: `Nouvelle demande de contact de ${name}`,
       text: message,
       html: `<p>${message}</p><p>Email: ${email}</p>`
     });
 
-    await transporter.sendMail({
-      from: process.env.CONTACT_EMAIL,
+    console.log('Message admin envoyé: %s', infoAdmin.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(infoAdmin));
+
+    const infoUser = await transporter.sendMail({
+      from: adminMail,
       to: email,
       subject: 'Votre demande a bien été reçue',
       text: `Bonjour ${name},\n\nNous avons bien reçu votre message :\n${message}\n\nNous reviendrons vers vous rapidement.`,
       html: `<p>Bonjour ${name},</p><p>Nous avons bien reçu votre message :</p><p>${message}</p><p>Nous reviendrons vers vous rapidement.</p>`
     });
+
+    console.log('Message utilisateur envoyé: %s', infoUser.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(infoUser));
 
     res.json({ success: true });
   } catch (err) {

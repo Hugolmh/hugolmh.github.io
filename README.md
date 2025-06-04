@@ -206,10 +206,11 @@ npm run deploy
 
 ## Formulaire de contact ✉️
 
-Une page dédiée au formulaire est disponible à l'adresse `/contact`. Lorsqu'un
-visiteur envoie un message, le serveur Express défini dans `server.js` expédie
-un e‑mail de confirmation au visiteur et transmet la demande à l'adresse
-configurée dans les variables d'environnement.
+Une page dédiée au formulaire est disponible à l'adresse `/contact` et est
+directement accessible depuis le bandeau de navigation. Lorsqu'un visiteur
+envoie un message, le serveur Express défini dans `server.js` utilise un compte
+de test fourni par Nodemailer pour expédier automatiquement l'e‑mail de
+confirmation sans nécessiter la configuration d'identifiants SMTP.
 
 Pour démarrer le serveur de contact en local :
 
@@ -217,7 +218,9 @@ Pour démarrer le serveur de contact en local :
 npm run server
 ```
 
-Les variables nécessaires sont détaillées dans le fichier `.env.example`.
+Seule l'adresse de réception peut être personnalisée via `CONTACT_EMAIL` dans le
+fichier `.env.example`, mais ce n'est pas obligatoire pour tester la
+fonctionnalité.
 
 ## Modifications récentes 🔄
 
