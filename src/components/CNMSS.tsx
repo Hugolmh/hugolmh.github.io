@@ -302,7 +302,7 @@ const CNMSS = () => {
                 initial="hidden"
                 animate={infoInView ? "visible" : "hidden"}
                 variants={cardVariants}
-                className={`p-6 rounded-xl shadow-lg ${darkMode ? 'bg-gray-800 hover:bg-gray-750' : 'bg-white hover:bg-gray-50'} transition-colors duration-300`}
+                className={`p-6 rounded-xl shadow-lg ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'} transition-colors duration-300`}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 <div className={`p-3 rounded-lg mb-4 inline-block ${darkMode ? 'bg-blue-900 text-blue-300' : 'bg-blue-100 text-blue-600'}`}>
