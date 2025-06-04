@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import CNMSS from './components/CNMSS';
+import ContactPage from './components/ContactPage';
 import { useTheme } from './context/ThemeContext';
 
 // Composant pour la page d'accueil
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cnmss" element={<CNMSS />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
   );
