@@ -586,7 +586,7 @@ const Projects = () => {
   const projects: Project[] = [ 
     {
       title: 'Codah',
-      description: 'Application de consultation des droits, accès et habiliataion',
+      description: 'Application de consultation des droits, accès et habilitation',
       image: `${import.meta.env.BASE_URL}Capture.PNG`,
       tags: ['En cours de développement', 'PHP', 'Symfony'],
       features: [
