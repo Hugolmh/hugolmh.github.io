@@ -201,8 +201,23 @@ Pour déployer le projet sur GitHub Pages, exécutez les commandes suivantes :
 
 2. Déployez le contenu :
    ```bash
-   npm run deploy
-   ```
+npm run deploy
+```
+
+## Formulaire de contact ✉️
+
+Une page dédiée au formulaire est disponible à l'adresse `/contact`. Lorsqu'un
+visiteur envoie un message, le serveur Express défini dans `server.js` expédie
+un e‑mail de confirmation au visiteur et transmet la demande à l'adresse
+configurée dans les variables d'environnement.
+
+Pour démarrer le serveur de contact en local :
+
+```bash
+npm run server
+```
+
+Les variables nécessaires sont détaillées dans le fichier `.env.example`.
 
 ## Modifications récentes 🔄
 
